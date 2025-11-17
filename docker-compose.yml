@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  # NoneBot2 机器人服务
+  bot:
+    build: ./bot
+    container_name: bot
+    restart: always
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8080
+      # 与 gocqhttp/config.yml 中的 access-token 一致
+      - ONEBOT_ACCESS_TOKEN=wozhenshigetiancai
+    ports:
+      - "8080:8080"
+
+  # go-cqhttp 服务（反向 WS 连接到 bot 服务）
+  gocqhttp:
+    image: ghcr.io/mrs4s/go-cqhttp:latest
+    container_name: gocqhttp
+    restart: always
+    volumes:
+      # 将本地 gocqhttp 目录挂载到容器的数据目录，读取 config.yml 并持久化登录数据
+      - ./gocqhttp:/app/data
+    depends_on:
+      - bot

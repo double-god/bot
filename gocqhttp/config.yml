@@ -1,0 +1,15 @@
+# 机器人账号
+account:
+  uin: 297899408
+  password: ""
+
+heartbeat:
+  interval: 5000
+
+# 消息上报设置，使用反向 WebSocket 到 bot 服务
+servers:
+  - ws-reverse:
+      universal: ws://bot:8080/onebot/v11/ws
+
+# 与 bot 服务的 ONEBOT_ACCESS_TOKEN 保持一致
+access-token: "wozhenshigetiancai"
